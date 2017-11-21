@@ -1,6 +1,7 @@
 package com.example.rehas.test2;
 
 import android.app.WallpaperManager;
+import android.content.Intent;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
 import android.graphics.Bitmap;
@@ -14,6 +15,7 @@ import android.widget.Button;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 public class SecondActivity extends AppCompatActivity {
@@ -26,10 +28,6 @@ public class SecondActivity extends AppCompatActivity {
 
 
     File f1 = new File(path);
-
-
-
-
 
 
     @Override
@@ -54,14 +52,14 @@ public class SecondActivity extends AppCompatActivity {
             }
         });
 
-        changeBG.setOnClickListener(new View.OnClickListener(){
+        changeBG.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick (View view){
+            public void onClick(View view) {
                 WallpaperManager wpman = WallpaperManager.getInstance(getApplicationContext());
 
                 Log.i("Wallpaper Setting", "Will Try");
 
-                if (f1.exists()){
+                if (f1.exists()) {
 
                     Log.i("Our File", "Our File Exists");
 
@@ -83,7 +81,7 @@ public class SecondActivity extends AppCompatActivity {
         });
 
 
-        getAppList.setOnClickListener(new View.OnClickListener(){
+        getAppList.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(View v) {
@@ -92,11 +90,33 @@ public class SecondActivity extends AppCompatActivity {
                 List<ApplicationInfo> packages = pm.getInstalledApplications(PackageManager.GET_META_DATA);
                 Log.d("Size: ", String.valueOf(packages.size()));
                 for (ApplicationInfo packageInfo : packages) {
-                    Log.d("info: ","Installed package :" + packageInfo.packageName);
-                    Log.d("info: ","Source dir : " + packageInfo.sourceDir);
-                    Log.d("info: ","Launch Activity :" + pm.getLaunchIntentForPackage(packageInfo.packageName));
+                    Log.d("info: ", "Installed package :" + packageInfo.packageName);
+                    Log.d("info: ", "Source dir : " + packageInfo.sourceDir);
+                    Log.d("info: ", "Launch Activity :" + pm.getLaunchIntentForPackage(packageInfo.packageName));
                 }
+
+                goToAppViewActivity(packages);
+
             }
         });
+    }
+
+
+    private void goToAppViewActivity(List applist) {
+
+        Log.d("Gonderilen App List", applist.toString());
+
+        ArrayList data = (ArrayList) applist;
+
+        Bundle dataBundle = new Bundle();
+
+        dataBundle.putParcelableArrayList("AppList", data);
+
+        Intent intent = new Intent(this, appviewActivity.class);
+        intent.putExtras(dataBundle);
+
+        Log.d("Gonderilen App Listno:1", applist.toArray()[0].toString());
+
+        startActivity(intent);
     }
 }
