@@ -2,10 +2,22 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent" android:layout_height="match_parent">
 
+    <CheckBox
+        android:id="@+id/cardViewCheck"
+        android:layout_width="@android:dimen/app_icon_size"
+        android:layout_height="@android:dimen/app_icon_size" />
+
     <TextView
         android:id="@+id/appName"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent"
+        android:layout_alignParentLeft="false"
+        android:layout_alignParentTop="true"
+        android:layout_toEndOf="@+id/cardViewCheck"
+        android:paddingTop="12dp"
+        android:singleLine="true"
+        android:maxLines="1"
+        android:text="com.android.example123456789012345678901234567890" />
     <TextView
         android:id="@+id/appFullName"
         android:layout_width="match_parent"
