@@ -20,7 +20,11 @@
             </intent-filter>
         </activity>
         <activity android:name=".SecondActivity" />
-        <activity android:name=".appviewActivity"></activity>
+        <activity android:name=".appviewActivity" />
+        <activity
+            android:name=".appNameStatusActivity"
+            android:label="@string/title_activity_app_name_status"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
 </manifest>

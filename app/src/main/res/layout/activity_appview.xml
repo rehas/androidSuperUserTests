@@ -54,5 +54,25 @@
         android:layout_marginRight="8dp"
         app:layout_constraintRight_toRightOf="parent" />
 
+    <Button
+        android:id="@+id/enableAppsButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:layout_marginLeft="8dp"
+        android:text="Enable"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toRightOf="@+id/gotoSecondActivityButton" />
+
+    <Button
+        android:id="@+id/disableAppsButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:layout_marginLeft="8dp"
+        android:text="Disable"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toRightOf="@+id/enableAppsButton" />
+
 
 </android.support.constraint.ConstraintLayout>

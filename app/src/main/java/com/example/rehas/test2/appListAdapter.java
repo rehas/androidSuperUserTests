@@ -36,16 +36,11 @@ public class appListAdapter extends RecyclerView.Adapter <appListAdapter.appView
         View appListView = LayoutInflater.
                 from(parent.getContext()).
                 inflate(R.layout.appcardview, parent, false);
-
-
-
         return new appViewHolder(appListView);
     }
 
     @Override
     public void onBindViewHolder(appViewHolder appNameHolder, int position) {
-
-
 
         appFullName =  appList.get(position).toString();
         appNameHolder.appFullName.setText(appFullName);
@@ -77,9 +72,6 @@ public class appListAdapter extends RecyclerView.Adapter <appListAdapter.appView
         protected TextView appName;
         protected TextView appFullName;
         protected CheckBox cardCheckBox;
-
-
-
         //protected TextView appCount;
 
         public appViewHolder(View itemView) {
@@ -93,16 +85,11 @@ public class appListAdapter extends RecyclerView.Adapter <appListAdapter.appView
 
         }
 
-
-
-
         @Override
         public void onClick(View itemView) {
 
             cardCheckBox = (CheckBox) itemView.findViewById(R.id.cardViewCheck);
-
             cardCheckBox.setChecked(cardCheckBox.isChecked()? false : true);
-
             checkStatus[getLayoutPosition()] = cardCheckBox.isChecked();
             Log.d("Check Box",  "Clicked!!!! position: " + getLayoutPosition());
         }

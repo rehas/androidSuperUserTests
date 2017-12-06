@@ -25,6 +25,9 @@ public class appviewActivity extends AppCompatActivity {
 
         TextView appCountText = (TextView) findViewById(R.id.appCount);
 
+        Button enableApps = (Button) findViewById(R.id.enableAppsButton);
+        Button disableApps = (Button) findViewById(R.id.disableAppsButton);
+
 
         Button goToSA = (Button) findViewById(R.id.gotoSecondActivityButton);
         goToSA.setOnClickListener(new View.OnClickListener() {
