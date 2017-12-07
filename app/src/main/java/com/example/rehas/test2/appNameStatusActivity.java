@@ -16,6 +16,8 @@ import android.widget.Button;
 import java.util.ArrayList;
 import java.util.List;
 
+import asyncTasks.genericEnableDisable;
+
 public class appNameStatusActivity extends AppCompatActivity {
 
     private RecyclerView appNSRV;
@@ -34,6 +36,8 @@ public class appNameStatusActivity extends AppCompatActivity {
                 finish();
             }
         });
+
+
 
         Bundle incoming = getIntent().getExtras();
 //        ArrayList<Parcelable> incoming = getIntent().getParcelableArrayListExtra("ansList");
@@ -56,15 +60,63 @@ public class appNameStatusActivity extends AppCompatActivity {
         appNSRV = (RecyclerView) findViewById(R.id.appNSRV);
         //appNSRV.setHasFixedSize(true);
 
-//        appNameStatusAdapter aNSA = new appNameStatusAdapter(appNSList);
+        final appNameStatusAdapter aNSA = new appNameStatusAdapter(appNSList);
 //        aNSA.notifyDataSetChanged();
 
-        appNSRV.setAdapter(new appNameStatusAdapter(appNSList));
+        appNSRV.setAdapter(aNSA);
 
 //        LinearLayoutManager llm2 = new LinearLayoutManager(this);
 //        llm2.setOrientation(LinearLayoutManager.VERTICAL);
 
         appNSRV.setLayoutManager(new LinearLayoutManager(getBaseContext()));
+
+        Button enableSelectedApps = (Button) findViewById(R.id.enableSelectedAppsButton);
+        enableSelectedApps.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Integer[] checkedItems = aNSA.getCurrentSelectedItems();
+
+                for (int i = 0; i < checkedItems.length; i++) {
+                    Log.d("ItemIsChecked",  checkedItems[i] + " Position " + i );
+
+                    if(checkedItems[i] == 1){
+
+                        packageInformation pI = aNSA.getItemAtPosition(i);
+
+                        Log.d("SelectedNames", pI.getName());
+
+                        new genericEnableDisable(appNameStatusActivity.this, pI  ).
+                                execute("Enable");
+
+                    }
+                }
+            }
+        });
+        Button disableSelectedApps = (Button) findViewById(R.id.disableSelectedApps);
+        disableSelectedApps.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                Integer[] checkedItems = aNSA.getCurrentSelectedItems();
+
+                for (int i = 0; i < checkedItems.length; i++) {
+                    Log.d("ItemIsChecked",  checkedItems[i] + " Position " + i );
+
+                    if(checkedItems[i] == 1){
+
+                        packageInformation pI = aNSA.getItemAtPosition(i);
+
+                        Log.d("SelectedNames", pI.getName());
+
+                        new genericEnableDisable(appNameStatusActivity.this, pI  ).
+                                                    execute("Disable");
+
+                    }
+                }
+
+                Log.d("Current selected pos", aNSA.appNScheckStatus.toString());
+            }
+        });
 
 
         Log.d("Parcelable List", appNSList.toString());

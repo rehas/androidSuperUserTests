@@ -43,16 +43,13 @@ public class appListAdapter extends RecyclerView.Adapter <appListAdapter.appView
     public void onBindViewHolder(appViewHolder appNameHolder, int position) {
 
         appFullName =  appList.get(position).toString();
-        appNameHolder.appFullName.setText(appFullName);
-
         appName = appList.get(position).
                              toString().
                              substring(appFullName.indexOf(' '));
+
+        appNameHolder.appFullName.setText(appFullName);
         appNameHolder.appName.setText(appName);
-
-
-
-        appNameHolder.cardCheckBox.setChecked(checkStatus[position] ? true : false);
+        appNameHolder.cardCheckBox.setChecked(checkStatus[position]);
 
         //appNameHolder.cardCheckBox.setChecked(false);
 
@@ -65,7 +62,6 @@ public class appListAdapter extends RecyclerView.Adapter <appListAdapter.appView
     public int getItemCount() {
         return appList.size();
     }
-
 
     public static class appViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
 
@@ -89,9 +85,9 @@ public class appListAdapter extends RecyclerView.Adapter <appListAdapter.appView
         public void onClick(View itemView) {
 
             cardCheckBox = (CheckBox) itemView.findViewById(R.id.cardViewCheck);
-            cardCheckBox.setChecked(cardCheckBox.isChecked()? false : true);
+            cardCheckBox.setChecked(!cardCheckBox.isChecked());
             checkStatus[getLayoutPosition()] = cardCheckBox.isChecked();
-            Log.d("Check Box",  "Clicked!!!! position: " + getLayoutPosition());
+//            Log.d("Check Box",  "Clicked!!!! position: " + getLayoutPosition());
         }
     }
 }

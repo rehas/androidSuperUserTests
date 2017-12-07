@@ -28,8 +28,25 @@ public class appNameStatusAdapter extends RecyclerView.Adapter<appNameStatusAdap
 
     public appNameStatusAdapter(ArrayList<packageInformation> appNameStatusList){
         this.appNameStatusList = appNameStatusList;
-        this.appNScheckStatus = new boolean[appNameStatusList.size()];
+        this.appListSize = appNameStatusList.size();
+        this.appNScheckStatus = new boolean[appListSize];
 
+    }
+
+    public Integer[] getCurrentSelectedItems(){
+        Integer[] result = new Integer[appNScheckStatus.length];
+        for (int i = 0; i<appNScheckStatus.length; i++) {
+            if (appNScheckStatus[i] == true){
+                result[i] = 1;
+            }else{
+                result[i] = 0;
+            }
+        }
+        return result;
+    }
+
+    public packageInformation getItemAtPosition(int pos){
+        return appNameStatusList.get(pos);
     }
 
     @Override
@@ -44,20 +61,16 @@ public class appNameStatusAdapter extends RecyclerView.Adapter<appNameStatusAdap
     public void onBindViewHolder(appNameStatusHolder holder, int position) {
 
         pInfo = appNameStatusList.get(position); //appNameStatusList.get(position);
-        Log.d("My View Item", pInfo.getName());
-
+//        Log.d("My View Item", pInfo.getName());
         pInfo.setName(appNameStatusList.get(position).getName());
         pInfo.setIsEnabled(appNameStatusList.get(position).
                             getStatus().equalsIgnoreCase("Enabled"));
 
 //        appPackageName = pInfo.getName();
 //        appPackageStatus = pInfo.getStatus() == "Enabled" ? true : false;
-
         holder.appPackageName.setText(pInfo.getName());
         holder.appStatus.setText(pInfo.getStatus());
-
         holder.appNSCardCheckBox.setChecked(appNScheckStatus[position]);
-
     }
 
     @Override
@@ -84,7 +97,7 @@ public class appNameStatusAdapter extends RecyclerView.Adapter<appNameStatusAdap
         public void onClick(View v) {
 
             appNSCardCheckBox = (CheckBox) itemView.findViewById(R.id.appNameStatusCardViewCheck);
-            appNSCardCheckBox.setChecked(appNSCardCheckBox.isChecked()? false: true);
+            appNSCardCheckBox.setChecked(!appNSCardCheckBox.isChecked());
             appNScheckStatus[getLayoutPosition()] = appNSCardCheckBox.isChecked();
 
         }
